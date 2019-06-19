@@ -1,0 +1,33 @@
+
+CREATE COMPUTE MODULE GetIBANCountryList
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		--SET OutputRoot.XMLNSC.ns:IBANCountryListReply.ns:eAI_HEADER = InputRoot.XMLNSC.ns:IBANCountryListRequest.ns:eAI_HEADER;
+		CALL RetrieveIBANList();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE RetrieveIBANList() BEGIN
+		SET OutputRoot.XMLNSC.ns:IBANCountryListReply.ns:eAI_BODY.ns:Country[] = PASSTHRU('SELECT FT_LKP_COUNTRY.CODE         AS "countryCode",
+		FT_LKP_COUNTRY.DESCRIPTION AS "conutryName",
+		TO_CHAR(FT_LKP_IBAN.IBAN_LENGTH) AS "IBANSupport"
+		FROM FT_LKP_IBAN,
+		FT_LKP_COUNTRY
+		WHERE FT_LKP_COUNTRY.ID = FT_LKP_IBAN.COUNTRY_ID');
+
+	END;
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

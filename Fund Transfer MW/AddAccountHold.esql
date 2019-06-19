@@ -1,0 +1,61 @@
+
+
+
+
+
+
+
+CREATE COMPUTE MODULE AddAccountHold
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		DECLARE inputRef REFERENCE TO InputRoot.XMLNSC.ns:AddAccountHoldRequest;
+		DECLARE outRef REFERENCE TO OutputRoot.XMLNSC.ns:AddAccountHoldReply;
+		CALL AddAccountHold(inputRef.ns:eAI_BODY.ns:accountNumber, inputRef.ns:eAI_BODY.ns:holdAmount);
+		CALL updateAccountsTable(inputRef.ns:eAI_BODY.ns:accountNumber);
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+
+	CREATE PROCEDURE AddAccountHold(IN accountNo CHARACTER, IN holdAmount CHARACTER) BEGIN
+		DECLARE SQL CHARACTER;
+		DECLARE result ROW;
+		SET SQL = 'INSERT INTO FUND_TRANSFER_MW.FT_ACCOUNT_HOLD (ACCOUNT_NO,AMOUNT)VALUES(' || accountNo || ',' || holdAmount || ')';
+		--INSERT INTO Database.FUND_TRANSFER_MW.FT_ACCOUNT_HOLD (ACCOUNT_NO,AMOUNT)VALUES(accountNo,holdAmount);
+		PASSTHRU(SQL);
+		SET result.holdRef[] = PASSTHRU('SELECT TO_CHAR(ACCOUNT_HOLD_SEQUENCE.CURRVAL) AS "holdReference" FROM dual');
+		set OutputRoot.XMLNSC.ns:AddAccountHoldReply.ns:eAI_BODY.ns:holdReference = result.holdRef[1].holdReference;
+
+	END;
+	create PROCEDURE updateAccountsTable(IN accountNo CHARACTER) BEGIN
+		DECLARE sql CHARACTER;
+		SET sql = 'DECLARE
+		holdAmount NUMBER(17,4) ;
+		BEGIN
+			SELECT SUM(AMOUNT)
+			INTO holdAmount
+			FROM FT_ACCOUNT_HOLD
+			WHERE ACCOUNT_NO = ' || accountNo || ';
+			UPDATE FT_ACCOUNT
+			SET TOTAL_HOLD_AMOUNT = holdAmount,
+			AVAILABLE_BALANCE = AVAILABLE_BALANCE - holdAmount
+			WHERE ACCOUNT_NUMBER = ' || accountNo || ';
+		END;
+		';
+		PASSTHRU(sql);
+	END;
+END MODULE;

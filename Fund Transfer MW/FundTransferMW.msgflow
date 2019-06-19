@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:AddAccountHoldRequest.subflow="AddAccountHoldRequest.subflow" xmlns:AddBeneficiaryRequest.subflow="AddBeneficiaryRequest.subflow" xmlns:BeneficiaryListRequest.subflow="BeneficiaryListRequest.subflow" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmLabel.msgnode="ComIbmLabel.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ComIbmRouteToLabel.msgnode="ComIbmRouteToLabel.msgnode"
+    xmlns:CurrencyConverter.subflow="CurrencyConverter.subflow" xmlns:EmailRequest.subflow="EmailRequest.subflow" xmlns:ExchangeRateListRequest.subflow="ExchangeRateListRequest.subflow" xmlns:GetAccountsSummary.subflow="GetAccountsSummary.subflow" xmlns:GetCustomerInfo.subflow="GetCustomerInfo.subflow" xmlns:GetIBANCountryList.subflow="GetIBANCountryList.subflow" xmlns:GetSwiftBankList.subflow="GetSwiftBankList.subflow" xmlns:NostroBankList.subflow="NostroBankList.subflow" xmlns:ReleaseAccountHoldRequest.subflow="ReleaseAccountHoldRequest.subflow"
+    xmlns:UpdateBeneficiaryRequest.subflow="UpdateBeneficiaryRequest.subflow" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:internalFundTransfer.subflow="internalFundTransfer.subflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="FundTransferMW.msgflow" nsPrefix="FundTransferMW.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="FundTransferMW" bundleName="FundTransferMW" pluginId="Fund Transfer MW"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Fund Transfer MW/icons/full/obj16/FundTransferMW.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Fund Transfer MW/icons/full/obj30/FundTransferMW.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="895,538" queueName="FUND.TRANSFER.REPLAY" destinationQueueManagerName="FTQM" messageContext="passIdentity">
+        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      </nodes>
+      <nodes xmi:type="ComIbmRouteToLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="347,23" mode="routeToFirst">
+        <translation xmi:type="utility:ConstantString" string="Route To Label"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="25,85" labelName="CustomerInfoRequest">
+        <translation xmi:type="utility:ConstantString" string="CustomerInfoRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="197,21" dataSource="FUNDDSN" computeExpression="esql://routine/#PrepareRouteList.Main" computeMode="destinationAndMessage">
+        <translation xmi:type="utility:ConstantString" string="PrepareRouteList"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="563,22" queueName="FUND.TRANSFER.ROUTE.FAIL" destinationQueueManagerName="FTQM">
+        <translation xmi:type="utility:ConstantString" string="Route Fail"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="13,163" labelName="AccountsSummaryRequest">
+        <translation xmi:type="utility:ConstantString" string="AccountsSummaryRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="GetCustomerInfo.subflow:FCMComposite_1" xmi:id="FCMComposite_1_11" location="228,85">
+        <translation xmi:type="utility:ConstantString" string="GetCustomerInfo"/>
+      </nodes>
+      <nodes xmi:type="GetAccountsSummary.subflow:FCMComposite_1" xmi:id="FCMComposite_1_12" location="216,162">
+        <translation xmi:type="utility:ConstantString" string="GetAccountsSummary"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_13" location="34,246" labelName="IBANCountryListRequest">
+        <translation xmi:type="utility:ConstantString" string="IBANCountryListRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="GetIBANCountryList.subflow:FCMComposite_1" xmi:id="FCMComposite_1_14" location="227,246">
+        <translation xmi:type="utility:ConstantString" string="GetIBANCountryList"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_15" location="40,318" labelName="AddBeneficiaryRequest">
+        <translation xmi:type="utility:ConstantString" string="AddBeneficiaryRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="AddBeneficiaryRequest.subflow:FCMComposite_1" xmi:id="FCMComposite_1_16" location="216,318">
+        <translation xmi:type="utility:ConstantString" string="AddBeneficiaryRequest"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_17" location="62,388" labelName="EmailRequest">
+        <translation xmi:type="utility:ConstantString" string="EmailRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="EmailRequest.subflow:FCMComposite_1" xmi:id="FCMComposite_1_18" location="240,388">
+        <translation xmi:type="utility:ConstantString" string="EmailRequest"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="20,20" queueName="FUND.TRANSFER.REQUEST" destinationQueueManagerName="FTQM" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="636,536" computeExpression="esql://routine/#setCorrIdAsMsgID.Main">
+        <translation xmi:type="utility:ConstantString" string="set corrID as msgID"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="25,454" labelName="UpdateBeneficiaryRequest">
+        <translation xmi:type="utility:ConstantString" string="UpdateBeneficiaryRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="UpdateBeneficiaryRequest.subflow:FCMComposite_1" xmi:id="FCMComposite_1_5" location="199,454">
+        <translation xmi:type="utility:ConstantString" string="UpdateBeneficiaryRequest"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_19" location="37,527" labelName="BeneficiaryListRequest">
+        <translation xmi:type="utility:ConstantString" string="BeneficiaryListRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="BeneficiaryListRequest.subflow:FCMComposite_1" xmi:id="FCMComposite_1_20" location="212,527">
+        <translation xmi:type="utility:ConstantString" string="BeneficiaryListRequest"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_21" location="22,596" labelName="CurrencyConverterRequest">
+        <translation xmi:type="utility:ConstantString" string="CurrencyConverterRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_22" location="37,655" labelName="SwiftBankListRequest">
+        <translation xmi:type="utility:ConstantString" string="SwiftBankListRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="GetSwiftBankList.subflow:FCMComposite_1" xmi:id="FCMComposite_1_23" location="218,655">
+        <translation xmi:type="utility:ConstantString" string="GetSwiftBankList"/>
+      </nodes>
+      <nodes xmi:type="CurrencyConverter.subflow:FCMComposite_1" xmi:id="FCMComposite_1_24" location="211,596">
+        <translation xmi:type="utility:ConstantString" string="CurrencyConverter"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_26" location="78,20" computeExpression="esql://routine/#initializeCommonProcedures.Main" computeMode="destinationAndMessage">
+        <translation xmi:type="utility:ConstantString" string="CommonProcedures"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_25" location="35,735" labelName="AddAccountHoldRequest">
+        <translation xmi:type="utility:ConstantString" string="AddAccountHoldRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_27" location="9,810" labelName="ReleaseAccountHoldRequest">
+        <translation xmi:type="utility:ConstantString" string="ReleaseAccountHoldRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="AddAccountHoldRequest.subflow:FCMComposite_1" xmi:id="FCMComposite_1_28" location="215,735">
+        <translation xmi:type="utility:ConstantString" string="AddAccountHoldRequest"/>
+      </nodes>
+      <nodes xmi:type="ReleaseAccountHoldRequest.subflow:FCMComposite_1" xmi:id="FCMComposite_1_29" location="205,810">
+        <translation xmi:type="utility:ConstantString" string="ReleaseAccountHoldRequest"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_30" location="32,883" labelName="ExchangeRateListRequest">
+        <translation xmi:type="utility:ConstantString" string="ExchangeRateListRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="ExchangeRateListRequest.subflow:FCMComposite_1" xmi:id="FCMComposite_1_31" location="202,883">
+        <translation xmi:type="utility:ConstantString" string="ExchangeRateListRequest"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_33" location="33,949" labelName="NostroBankListRequest">
+        <translation xmi:type="utility:ConstantString" string="NostroBankListRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="NostroBankList.subflow:FCMComposite_1" xmi:id="FCMComposite_1_34" location="234,952">
+        <translation xmi:type="utility:ConstantString" string="NostroBankList"/>
+      </nodes>
+      <nodes xmi:type="ComIbmLabel.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_35" location="39,1023" labelName="FundTransferRequest">
+        <translation xmi:type="utility:ConstantString" string="FundTransferRequestLabel"/>
+      </nodes>
+      <nodes xmi:type="internalFundTransfer.subflow:FCMComposite_1" xmi:id="FCMComposite_1_36" location="204,1023">
+        <translation xmi:type="utility:ConstantString" string="internalFundTransfer"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_6" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_9" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_12" sourceNode="FCMComposite_1_10" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_13" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_16" sourceNode="FCMComposite_1_15" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_15" targetNode="FCMComposite_1_18" sourceNode="FCMComposite_1_17" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_12" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_18" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_16" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_14" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_12" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_14" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_16" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_5" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_17" targetNode="FCMComposite_1_20" sourceNode="FCMComposite_1_19" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_18" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_20" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_19" targetNode="FCMComposite_1_24" sourceNode="FCMComposite_1_21" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_20" targetNode="FCMComposite_1_23" sourceNode="FCMComposite_1_22" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_21" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_23" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_22" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_24" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_26" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_23" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_26" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_24" targetNode="FCMComposite_1_28" sourceNode="FCMComposite_1_25" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_25" targetNode="FCMComposite_1_29" sourceNode="FCMComposite_1_27" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_26" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_28" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_27" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_29" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_28" targetNode="FCMComposite_1_31" sourceNode="FCMComposite_1_30" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_29" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_31" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_30" targetNode="FCMComposite_1_34" sourceNode="FCMComposite_1_33" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_31" targetNode="FCMComposite_1_36" sourceNode="FCMComposite_1_35" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_32" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_36" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

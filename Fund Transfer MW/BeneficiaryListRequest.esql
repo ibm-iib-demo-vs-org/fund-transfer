@@ -1,0 +1,115 @@
+
+
+
+
+CREATE COMPUTE MODULE BeneficiaryListRequest
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		CALL retrieveBeneficiaryList();
+
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE retrieveBeneficiaryList() BEGIN
+		DECLARE inBody REFERENCE TO InputRoot.XMLNSC.ns:BeneficiaryListRequest.ns:eAI_BODY;
+		DECLARE beneficiaryList REFERENCE TO OutputRoot.XMLNSC.ns:BeneficiaryListReply.ns:eAI_BODY.ns:beneficiary;
+		DECLARE results ROW;
+		DECLARE i INTEGER;
+		SET i = 1;
+		DECLARE sql CHARACTER;
+--		SET sql = 'SELECT DISTINCT FT_BENEFICIARY.CUSTOMER_NO AS "customerNumber",
+--		FT_BENEFICIARY.BENEFICIARY_NICK_NAME AS "nickName",
+--		FT_BENEFICIARY.BENEFICIARY_ACCOUNT AS "IBAN",
+--		FT_BENEFICIARY.BENEFICIARY_NAME AS "name",
+--		FT_BENEFICIARY.CREATION_TIME AS "creationTime",
+--		FT_BENEFICIARY.RECEIVED_TRANSFER AS "receivedTransfer",
+--		FT_BENEFICIARY.BENEFICIARY_ID AS ID
+--		FROM FT_BENEFICIARY
+--		WHERE FT_BENEFICIARY.CUSTOMER_NO = ' || inBody.ns:customerNumber;
+--
+--		SET OutputRoot.XMLNSC.ns:BeneficiaryListReply.ns:eAI_BODY.ns:beneficiary.ns:internalBeneficiary[] = PASSTHRU(sql);
+
+		SET sql = 'SELECT DISTINCT FT_BENEFICIARY.CUSTOMER_NO AS "customerNumber",
+		FT_BENEFICIARY.BENEFICIARY_NICK_NAME AS "nickName",
+		FT_BENEFICIARY.BENEFICIARY_ACCOUNT AS "IBAN",
+		FT_BENEFICIARY.BENEFICIARY_NAME AS "name",
+		FT_BENEFICIARY.BENEFICIARY_ADDRESS AS "beneficiaryAddress",
+		FT_BENEFICIARY.CREATION_TIME AS "creationTime",
+		FT_BENEFICIARY.RECEIVED_TRANSFER AS "receivedTransfer",
+		FT_BENEFICIARY.MOBILE_NUMBER AS "mobileNumber",
+		FT_BENEFICIARY.NATIONALITY_ID AS "nationality",
+		FT_BANK.SWIFT_CODE AS "swiftCode",
+		FT_BANK.BANK_NAME AS "bankName",
+		FT_BANK.ADDRESS1 AS "address1",
+		FT_BANK.ADDRESS2 AS "address2",
+		FT_BANK.ADDRESS3 AS "address3",
+		FT_BANK.ADDRESS4 AS "address4",
+		FT_BANK.BRANCH_DETAILS AS "bankBranch",
+		FT_BANK.CITY AS "city",
+		FT_LKP_COUNTRY.DESCRIPTION AS "country",
+		FT_LKP_COUNTRY.CODE AS "countryCode",
+		FT_BENEFICIARY.BENEFICIARY_ID AS ID
+		FROM FT_BENEFICIARY ,
+		FT_BANK,
+		FT_LKP_COUNTRY
+		WHERE FT_BENEFICIARY.CUSTOMER_NO = ' || inBody.ns:customerNumber ||'
+		AND FT_BANK.SWIFT_CODE = FT_BENEFICIARY.SWIFT_CODE
+		AND FT_BANK.COUNTRY_ID = FT_LKP_COUNTRY.ID';
+		SET results.Beneficiary[] = PASSTHRU(sql);
+		IF CARDINALITY(results.Beneficiary[]) = 0 THEN
+			SET OutputRoot.XMLNSC.ns:BeneficiaryListReply.ns:eAI_BODY = NULL;
+		ELSE
+			WHILE i <= CARDINALITY(results.Beneficiary[]) DO
+				SET beneficiaryList.ns:customerNumber = results.Beneficiary[i].customerNumber;
+				SET beneficiaryList.ns:nickname = results.Beneficiary[i].nickName;
+
+				SET beneficiaryList.ns:internalBeneficiary.ns:customerNumber = results.Beneficiary[i].customerNumber;
+				SET beneficiaryList.ns:internalBeneficiary.ns:nickName = results.Beneficiary[i].nickName;
+				SET beneficiaryList.ns:internalBeneficiary.ns:IBAN = results.Beneficiary[i].IBAN;
+				SET beneficiaryList.ns:internalBeneficiary.ns:name = results.Beneficiary[i].name;
+				SET beneficiaryList.ns:internalBeneficiary.ns:receivedTransfer = results.Beneficiary[i].receivedTransfer;
+
+				SET beneficiaryList.ns:externalBeneficiary.ns:accountNumber = results.Beneficiary[i].IBAN;
+				SET beneficiaryList.ns:externalBeneficiary.ns:customerNumber = results.Beneficiary[i].customerNumber;
+				SET beneficiaryList.ns:externalBeneficiary.ns:nickName = results.Beneficiary[i].nickName;
+				SET beneficiaryList.ns:externalBeneficiary.ns:creationTime = results.Beneficiary[i].creationTime;
+				SET beneficiaryList.ns:externalBeneficiary.ns:mobileNumber = results.Beneficiary[i].mobileNumber;
+				SET beneficiaryList.ns:externalBeneficiary.ns:nationality = results.Beneficiary[i].nationality;
+				SET beneficiaryList.ns:externalBeneficiary.ns:receivedTransfer = results.Beneficiary[i].receivedTransfer;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryName = results.Beneficiary[i].name;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryAddress = results.Beneficiary[i].beneficiaryAddress;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryCity = results.Beneficiary[i].city;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankAddress1 = results.Beneficiary[i].address1;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankAddress2 = results.Beneficiary[i].address2;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankAddress3 = results.Beneficiary[i].address3;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankAddress4 = results.Beneficiary[i].address4;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankBIC = results.Beneficiary[i].swiftCode;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankBranch = results.Beneficiary[i].bankBranch;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankCity = results.Beneficiary[i].city;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankCountry = results.Beneficiary[i].country;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankCountryCode = results.Beneficiary[i].countryCode;
+				SET beneficiaryList.ns:externalBeneficiary.ns:swiftInfo.ns:beneficiaryBank.ns:bankName = results.Beneficiary[i].bankName;
+
+				SET i = i + 1;
+			END WHILE;
+		END IF;
+
+
+
+
+	END;
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

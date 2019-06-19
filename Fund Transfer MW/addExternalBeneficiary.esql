@@ -1,0 +1,73 @@
+
+CREATE COMPUTE MODULE addExternalBeneficiary
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		CALL addBeneficiary();
+		SET OutputRoot.XMLNSC.ns:AddBeneficiaryReply.ns:eAI_BODY = NULL;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+	CREATE PROCEDURE addBeneficiary() BEGIN
+		DECLARE inRoot REFERENCE TO InputRoot.XMLNSC.ns:AddBeneficiaryRequest.ns:eAI_BODY.ns:externalBeneficiary;
+		DECLARE SQL CHARACTER;
+		SET SQL = 'INSERT
+		INTO FT_BENEFICIARY
+		(
+		BENEFICIARY_ACCOUNT,
+		BENEFICIARY_ADDRESS,
+		BENEFICIARY_CITY,
+		BENEFICIARY_NAME,
+		BENEFICIARY_NICK_NAME,
+		MOBILE_NUMBER,
+		NATIONALITY_ID,
+		RECEIVED_TRANSFER,
+		CREATION_TIME,
+		CUSTOMER_NO,
+		SWIFT_CODE
+		)
+		VALUES
+		(
+		?,
+		?,
+		?,
+		?,
+		?,
+		?,
+		(SELECT ID FROM FT_LKP_COUNTRY WHERE CODE = ?
+		),
+		?,
+		?,
+		?,
+		?
+		)' ;
+		-- SET OutputRoot.BLOB.SQL = SQL;
+		PASSTHRU(SQL,inRoot.ns:accountNumber, 
+		inRoot.ns:swiftInfo.ns:beneficiaryAddress,
+		inRoot.ns:swiftInfo.ns:beneficiaryCity,
+		inRoot.ns:swiftInfo.ns:beneficiaryName,
+		inRoot.ns:nickName,
+		inRoot.ns:mobileNumber,
+		inRoot.ns:nationality,
+		inRoot.ns:receivedTransfer,
+		inRoot.ns:creationTime,
+		inRoot.ns:customerNumber,
+		inRoot.ns:swiftInfo.ns:beneficiaryBank.ns:bankBIC);
+
+
+	END;
+END MODULE;

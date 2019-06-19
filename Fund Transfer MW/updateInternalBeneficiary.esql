@@ -1,0 +1,36 @@
+
+CREATE COMPUTE MODULE updateInternalBeneficiary
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		CALL updateBeneficiary();
+		SET OutputRoot.XMLNSC.ns:UpdateBeneficiaryReply.ns:eAI_BODY = NULL;
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+
+	CREATE PROCEDURE updateBeneficiary() BEGIN
+		DECLARE inRoot REFERENCE TO InputRoot.XMLNSC.ns:UpdateBeneficiaryRequest.ns:eAI_BODY.ns:internalBeneficiary;
+		DECLARE sql CHARACTER;
+		SET sql = 'UPDATE FUND_TRANSFER_MW.FT_BENEFICIARY SET CUSTOMER_NO = ''' || inRoot.ns:customerNumber ||
+		''',BENEFICIARY_ACCOUNT = ''' || inRoot.ns:IBAN || ''',BENEFICIARY_NAME = ''' || inRoot.ns:name || ''',
+		BENEFICIARY_NICK_NAME = ''' || inRoot.ns:nickName || ''',RECEIVED_TRANSFER = ''' || inRoot.ns:receivedTransfer ||
+		''' WHERE BENEFICIARY_ACCOUNT = ''' || inRoot.ns:IBAN || '''';
+		PASSTHRU(sql);
+
+	END;
+END MODULE;

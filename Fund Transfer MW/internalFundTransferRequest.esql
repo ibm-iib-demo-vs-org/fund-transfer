@@ -1,0 +1,45 @@
+
+
+CREATE COMPUTE MODULE internalFundTransferRequest
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+
+		DECLARE inBody REFERENCE TO InputRoot.XMLNSC.ns:FundTransferRequest.ns:eAI_BODY;
+		DECLARE outRef REFERENCE TO OutputRoot.XMLNSC;
+		
+		CALL postInternalFundTransferRequest(inBody.ns:debitAccount.ns:acctNumber, inBody.ns:customerNumber, '- ', inBody.ns:debitAccount.ns:amount);
+		CALL postInternalFundTransferRequest(inBody.ns:creditAccount.ns:acctNumber, inBody.ns:customerNumber, '+ ', inBody.ns:creditAccount.ns:amount);
+		SET outRef.ns:FundTransferReply.ns:eAI_BODY.ns:transferAuthCode = CURRENT_TIMESTAMP;
+		SET outRef.ns:FundTransferReply.ns:eAI_BODY.ns:chargesAuthCode = CURRENT_TIMESTAMP;
+		
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+	CREATE PROCEDURE postInternalFundTransferRequest(IN accountNO CHARACTER, IN customerNo CHARACTER, IN operator CHARACTER, IN amount CHARACTER) BEGIN
+		DECLARE sql CHARACTER;
+		SET sql = 'UPDATE FT_ACCOUNT
+		SET AVAILABLE_BALANCE = AVAILABLE_BALANCE ' || operator || amount ||
+		' WHERE ACCOUNT_NUMBER = ' || accountNO || ' AND EXISTS
+		(SELECT FT_CUSTOMER.CUSTOMER_NO FROM FT_CUSTOMER
+		WHERE FT_CUSTOMER.ID = FT_ACCOUNT.CUSTOMER_ID
+		AND FT_CUSTOMER.CUSTOMER_NO = ' || customerNo || ' )';
+		-- SET OutputRoot.BLOB.sql = sql;
+		PASSTHRU(sql);
+	END;
+
+END MODULE;

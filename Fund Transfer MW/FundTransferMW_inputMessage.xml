@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MessagePool xmlns="http://wwww.ibm.com/iib/test/1.0.0">
+    <MQInputMessage timestamp="1554636143014" nodeId="FCMComposite_1_1" name="new message 1" id="1554636143014-7">
+        <plainText>%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0D%0A%3Cns1%3ACustomerInfoRequest+xmlns%3Ans1%3D%22urn%3Aesbbank.com%2Fgbo%2Fxml%2Fschemas%2Fv1_0%2F%22+xmlns%3Axsi%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema-instance%22+xsi%3AschemaLocation%3D%22urn%3Aesbbank.com%2Fgbo%2Fxml%2Fschemas%2Fv1_0%2F+CUSTOMER.INFO.xsd+%22%3E%0D%0A++%3Cns1%3AeAI_HEADER%3E%0D%0A++++%3Cns1%3AreferenceNum%3E%3C%23%3D+tw.local.header.referenceNum+%23%3E%3C%2Fns1%3AreferenceNum%3E%0D%0A++++%3Cns1%3AclientChannel%3EMOB%3C%2Fns1%3AclientChannel%3E%0D%0A++++%3Cns1%3ArequestTime%3E2001-12-31T12%3A00%3A00%3C%2Fns1%3ArequestTime%3E%0D%0A++%3C%2Fns1%3AeAI_HEADER%3E%0D%0A++%3Cns1%3AeAI_BODY%3E%0D%0A++++%3Cns1%3ACustomerNumber%3E123456%3C%2Fns1%3ACustomerNumber%3E%0D%0A++%3C%2Fns1%3AeAI_BODY%3E%0D%0A%3C%2Fns1%3ACustomerInfoRequest%3E</plainText>
+        <MessageHeader backoutCount="0" characterSet="0" encoding="0" expiry="-1" feedback="0" messageFlags="0" messageType="8" messageSequenceNumber="1" offset="0" originalLength="-1" persistence="2" priority="-1" putApplicationType="0" report="0"/>
+    </MQInputMessage>
+</MessagePool>

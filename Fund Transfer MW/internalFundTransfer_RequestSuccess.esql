@@ -1,0 +1,31 @@
+
+
+
+
+CREATE COMPUTE MODULE internalFundTransfer_RequestSuccess
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		DECLARE out REFERENCE TO OutputRoot.XMLNSC.ns:FundTransferReply;
+		DECLARE inHeader REFERENCE TO InputRoot.XMLNSC.ns:FundTransferRequest.ns:eAI_HEADER;
+		CALL setHeadersAndStatus(inHeader,out,'000000');
+		SET OutputRoot.XMLNSC.ns:FundTransferRequest = NULL;
+
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

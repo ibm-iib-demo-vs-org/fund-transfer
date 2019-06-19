@@ -1,0 +1,64 @@
+
+
+
+DECLARE ns NAMESPACE 'urn:esbbank.com/gbo/xml/schemas/v1_0/';
+
+
+CREATE COMPUTE MODULE PrepareRouteList
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		SET Environment.Variables.OriginalMQMD = InputRoot.MQMD;
+		SET Environment.Variables.OriginalMQMD.CorrelId = InputRoot.MQMD.MsgId;
+--		SET OutputLocalEnvironment.Variables.OriginalMQMD = InputRoot.MQMD;
+--		SET OutputLocalEnvironment.Variables.OriginalMQMD.CorrelId = InputRoot.MQMD.MsgId;
+
+		IF EXISTS(InputRoot.XMLNSC.ns:CustomerInfoRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'CustomerInfoRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:AccountsSummaryRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'AccountsSummaryRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:IBANCountryListRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'IBANCountryListRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:AddBeneficiaryRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'AddBeneficiaryRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:UpdateBeneficiaryRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'UpdateBeneficiaryRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:EmailRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'EmailRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:BeneficiaryListRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'BeneficiaryListRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:CurrencyConverterRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'CurrencyConverterRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:SwiftBankListRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'SwiftBankListRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:AddAccountHoldRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'AddAccountHoldRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:ReleaseAccountHoldRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'ReleaseAccountHoldRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:ExchangeRateListRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'ExchangeRateListRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:NostroBankListRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'NostroBankListRequest';
+		ELSEIF EXISTS(InputRoot.XMLNSC.ns:FundTransferRequest[]) THEN
+			SET OutputLocalEnvironment.Destination.RouterList.DestinationData[1].labelName = 'FundTransferRequest';
+		END IF;
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+
+END MODULE;
