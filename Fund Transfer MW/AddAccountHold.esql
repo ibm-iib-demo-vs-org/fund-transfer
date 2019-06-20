@@ -8,7 +8,7 @@
 CREATE COMPUTE MODULE AddAccountHold
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyMessageHeaders();
+		--CALL CopyMessageHeaders();
 		CALL CopyEntireMessage();
 		DECLARE inputRef REFERENCE TO InputRoot.XMLNSC.ns:AddAccountHoldRequest;
 		DECLARE outRef REFERENCE TO OutputRoot.XMLNSC.ns:AddAccountHoldReply;
