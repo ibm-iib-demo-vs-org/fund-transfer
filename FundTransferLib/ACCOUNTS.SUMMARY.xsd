@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+
+	<xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>
+	<xsd:element name="AccountsSummaryRequest"
+		type="esbbankgbo:AccountsSummaryRequest">
+	</xsd:element>
+
+	<xsd:complexType name="AccountsSummaryRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY"
+				type="esbbankgbo:AccountsSummaryRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="AccountsSummaryRequestBody">
+		<xsd:choice>
+			<xsd:element maxOccurs="1" minOccurs="1"
+				name="customerNumber" type="esbbankgbo:CustomerNumber" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accountNumber" type="esbbankgbo:AcctNumber" />
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:element name="AccountsSummaryReply"
+		type="esbbankgbo:AccountsSummaryReply">
+	</xsd:element>
+
+	<xsd:complexType name="AccountsSummaryReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY"
+				type="esbbankgbo:AccountsSummaryReplyBody" minOccurs="0" />
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AccountsSummaryReplyBody">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0"
+				name="accountSummary" type="esbbankgbo:AccountSummary" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AccountSummary">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1"
+				name="accountNumber" type="esbbankgbo:AcctNumber" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="accountIBAN"
+				type="esbbankgbo:IBANNumber" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accountCurrency" type="esbbankgbo:CurrencyCode" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="accountType"
+				type="esbbankgbo:AcctType" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accountStatus" type="esbbankgbo:AcctStatus" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="currentBalance" type="esbbankgbo:Balance" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="availableBalance" type="esbbankgbo:Balance" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="equivalentBalance" type="esbbankgbo:Balance" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accountNumberofDecimals" type="xsd:short" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accountShortNameEn" type="esbbankgbo:ShortName" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accountShortNameAr" type="esbbankgbo:ShortName" />
+			<xsd:element name="totalHoldAmount" type="esbbankgbo:Amount"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+</xsd:schema>

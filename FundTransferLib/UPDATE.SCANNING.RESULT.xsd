@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="UpdateScanningResultRequest" type="esbbankgbo:UpdateScanningResultRequest"></xsd:element>
+	
+	<xsd:complexType name="UpdateScanningResultRequest"> 
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:UpdateScanningResultRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="UpdateScanningResultRequestBody">
+		<xsd:sequence>
+				<xsd:choice>
+					
+				<xsd:element maxOccurs="1" minOccurs="0" name="AddGoodGuy" type="esbbankgbo:AddGoodGuy" />	
+				<xsd:element maxOccurs="1" minOccurs="0" name="UpdateAlertStatus" type="esbbankgbo:UpdateAlertStatus" />
+				</xsd:choice>
+						
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="UpdateAlertStatus">
+		<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="alertID" type="xsd:int" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="status" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="assignedTo" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="comments" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AddGoodGuy">
+		<xsd:sequence>
+					
+					<xsd:element maxOccurs="1" minOccurs="1" name="entityID" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="acceptedString" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="comments" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="condition" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="entityName" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="reportViolations" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="zoneID" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="UpdateScanningResultReply" type="esbbankgbo:UpdateScanningResultReply"></xsd:element>
+	
+	<xsd:complexType name="UpdateScanningResultReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:UpdateScanningResultReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="UpdateScanningResultReplyBody">
+		<xsd:sequence>
+		<xsd:element maxOccurs="1" minOccurs="0" name="alertStatus" type="xsd:string" />
+		<xsd:element maxOccurs="1" minOccurs="0" name="goodGuyListID" type="xsd:int" />
+		
+		</xsd:sequence>
+	</xsd:complexType>
+
+	
+</xsd:schema>	

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="SMSRequest" type="esbbankgbo:SMSRequest"></xsd:element>
+	
+	<xsd:complexType name="SMSRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:SMSRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="SMSRequestBody">
+		<xsd:sequence>
+			<xsd:element name="SMSMessage" minOccurs="1"
+				maxOccurs="unbounded" type="esbbankgbo:SMSMessageType">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="SMSReply" type="esbbankgbo:SMSReply"></xsd:element>
+	
+	<xsd:complexType name="SMSReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:SMSReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SMSReplyBody">
+		<xsd:sequence>
+			<xsd:element name="messageID" type="esbbankgbo:String" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="mobileNumber" type="esbbankgbo:String" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="status" type="esbbankgbo:String" maxOccurs="1" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+		<xsd:simpleType name="SMSText">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="1"></xsd:minLength>
+					<xsd:maxLength value="150"></xsd:maxLength>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+
+		<xsd:simpleType name="SMSLangType">
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="EN"></xsd:enumeration>
+				<xsd:enumeration value="AR"></xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleType>
+
+
+		<xsd:complexType name="SMSMessageType">
+			<xsd:sequence>
+				<xsd:element name="mobileNumber" type="xsd:int"
+					maxOccurs="unbounded" minOccurs="1">
+				</xsd:element>
+				<xsd:element name="body" maxOccurs="1" minOccurs="1">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1"></xsd:minLength>
+
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="lang"
+					type="esbbankgbo:SMSLangType" maxOccurs="1" minOccurs="1">
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+</xsd:schema>	

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="GetScanningResultRequest" type="esbbankgbo:GetScanningResultRequest"></xsd:element>
+	
+	<xsd:complexType name="GetScanningResultRequest"> 
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:GetScanningResultRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="GetScanningResultRequestBody">
+		<xsd:sequence>
+					
+					<xsd:element maxOccurs="1" minOccurs="1" name="format" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="data" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="address" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="BIC" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="city" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="context" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="country" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="recordID" type="xsd:int" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="recordLocation" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="rank" type="xsd:int" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="vesselDetectionFlag" type="xsd:int" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="CountryDetectionFlag" type="xsd:int" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="autoCreateAlertFlag" type="xsd:int" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="positiveDetectionFlag" type="xsd:int" />	
+					<xsd:element maxOccurs="1" minOccurs="0" name="fullReportFlag" type="xsd:int" />	
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="GetScanningResultReply" type="esbbankgbo:GetScanningResultReply"></xsd:element>
+	
+	<xsd:complexType name="GetScanningResultReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:GetScanningResultReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="GetScanningResultReplyBody">
+		<xsd:sequence>
+		<xsd:element maxOccurs="1" minOccurs="0" name="violationCount" type="xsd:int" />
+		<xsd:element maxOccurs="1" minOccurs="0" name="acceptCount" type="xsd:int" />
+		<xsd:element maxOccurs="1" minOccurs="0" name="externalCount" type="xsd:int" />
+		<xsd:element maxOccurs="1" minOccurs="0" name="detectionID" type="xsd:int" />			
+		<xsd:element maxOccurs="1" minOccurs="0" name="reportList"	type="esbbankgbo:reportList" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="reportList">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="report"
+				type="esbbankgbo:report" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="report">
+		<xsd:sequence>
+	<xsd:element maxOccurs="1" minOccurs="0" name="status" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="data" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="match" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="scannedBIC" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="BICAddress" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="BICCity" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="BICCountry" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="rank" type="xsd:int" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="listName" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="listDate" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="entityID" type="xsd:int" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="category" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="remarks" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="title" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="biginPosititon" type="xsd:int" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="endPosititon" type="xsd:int" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="field" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="line" type="xsd:int" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="program" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="dateOfBirth" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="placeOfBirth" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="externalID" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="gender" type="xsd:string" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="entityList"
+				type="esbbankgbo:entityList" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="entityAddressList"
+				type="esbbankgbo:entityAddressList" />
+	<xsd:element maxOccurs="1" minOccurs="0" name="checkDetectionGlobalStatus" type="xsd:string" />			
+	<xsd:element maxOccurs="1" minOccurs="0" name="alertsList"
+				type="esbbankgbo:alertsList" />			
+		</xsd:sequence>
+	</xsd:complexType>
+
+<xsd:complexType name="entityList">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="entity"
+				type="esbbankgbo:entity" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="entity">
+		<xsd:sequence>
+	<xsd:element maxOccurs="1" minOccurs="0" name="nameType" type="xsd:string" />
+		<xsd:element maxOccurs="1" minOccurs="0" name="name" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+<xsd:complexType name="entityAddressList">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="entityAddress"
+				type="esbbankgbo:entityAddress" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="entityAddress">
+		<xsd:sequence>
+	<xsd:element maxOccurs="1" minOccurs="0" name="address" type="xsd:string" />
+		<xsd:element maxOccurs="1" minOccurs="0" name="city" type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="country" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="alertsList">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="alert"
+				type="esbbankgbo:alert" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="alert">
+		<xsd:sequence>
+	<xsd:element maxOccurs="1" minOccurs="0" name="alertID" type="xsd:string" />
+		<xsd:element maxOccurs="1" minOccurs="0" name="alertStatus" type="xsd:string" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="alertAssignedTo" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>	

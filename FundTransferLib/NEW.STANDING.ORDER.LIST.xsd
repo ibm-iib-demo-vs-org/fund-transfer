@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0" xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/">
+       <xsd:include schemaLocation="CommonTypes.xsd"/>	
+
+<!-- 	<xsd:element name="NewStandingOrderListRequest" type="esbbankgbo:NewStandingOrderListRequest"/> -->
+	
+	<xsd:complexType name="NewStandingOrderListRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER"/>
+			<xsd:element name="eAI_BODY" type="esbbankgbo:NewStandingOrderListRequestBody"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="NewStandingOrderListRequestBody">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="customerNumber" type="esbbankgbo:CustomerNumber"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+<!-- 	<xsd:element name="NewStandingOrderListReply" type="esbbankgbo:NewStandingOrderListReply"/> -->
+	
+	<xsd:complexType name="NewStandingOrderListReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER"/>
+			<xsd:element minOccurs="0" name="eAI_BODY" type="esbbankgbo:NewStandingOrderListReplyBody"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="NewStandingOrderListReplyBody">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="standingOrder" type="esbbankgbo:NewStandingOrder"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+ <xsd:complexType name="NewStandingOrder">
+    	<xsd:sequence>
+    	<xsd:element maxOccurs="1" minOccurs="0" name="AccountBranch">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+    	</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BasicPartofAccountNumber">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountSuffix">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderReference">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryCurrency">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="TransferMethod">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="InstructionIdentifier">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="FrequencyCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="FirstActionDate">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="FinalActionDate">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="LastProcessedDate">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="NextProcessedDate">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DebitTransactionCodeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderCurrency">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="FirstPaymentAmount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="LastPaymentAmount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="RegularPaymentAmount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SpotorUserRetailRate">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="RetailRateCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DrStandingOifNoAvailFunds">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DrChgsifNoAvailFunds">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SetUpChargeCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SetUpChargeAmount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="MaintenanceChargeCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="MaintenanceChargeAmount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="CancellationChargeCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="CancellationChargeAmount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Hold">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="HoldExpiryDate">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Retain">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Confirmation">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Manual">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderAccountChargeCodeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderAccountChargeAmountOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderAccountChargeCodeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderAccountChargeAmountTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderAccountChargeCodeThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderAccountChargeAmountThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryChargeCodeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryChargeAmountOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryChargeCodeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryChargeAmountTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryChargeCodeThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryChargeAmountThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ChargeFromTransferMethod">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="FailedLastFrequency">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderFailedLastFrqRetry">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ActionedStandingOrder">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="CpFailedLastFrqRetry">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="CpHeldLastFrqRetry">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="Cancel">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="UserID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AuthorisingUser">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AutoAuthorisedAPI">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="StandingOrderAuthorised">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DateLastSOFailed">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DateLastCPFailed">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DateLastMaintained">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AuthoriseStandingOrderFlag">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SettlementType">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SettlementReference">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryInstructionIdentifier">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ModifiedInstructions">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AbbreviatedInstructions">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="CreditTransactionCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="CreditCurrencyMnemonic">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DebitTransactionCodeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DebitCurrencyMnemonic">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveNostro">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveTransferMethod">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveSettlementNarrativeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveSettlementNarrativeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveSettlementNarrativeThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveSettlementNarrativeFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveUserCodeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveUserCodeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiveUserCodeThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayNostro">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayAccountBranch">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayAccountNumber">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayAccountSuffix">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayTransferMethod">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayMessageCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ChargesForBENorOURorSHA">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DetailsOfPaymentOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DetailsOfPaymentTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DetailsOfPaymentThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="DetailsOfPaymentFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaymentPupose">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaymentPuposeDetailsOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaymentPuposeDetailsTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaymentPuposeDetailsThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaymentPuposeDetailsFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryAccount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiarySWIFTBankID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiarySWIFTCountryCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiarySWIFTLocation">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiarySWIFTBranchID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryNameAndAddressOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryNameAndAddressTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryNameAndAddressThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BeneficiaryNameAndAddressFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionAccount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionSWIFTBankID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionSWIFTCountryCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionSWIFTLocation">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionSWIFTBranchID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionNameAndAddressOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionNameAndAddressTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionNameAndAddressThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionNameAndAddressFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionUserReferenceOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="AccountWithInstitutionUserReferenceTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverTransferMethod">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverSWIFTBankID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverSWIFTCountryCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverSWIFTLocation">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverSWIFTBranchID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverFaxNumber">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverTelexNumber">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverAnswerback">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverNameAndAddressOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverNameAndAddressTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverNameAndAddressThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverNameAndAddressFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SenderCorrespondentAccount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediaryAccount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediarySWIFTBankID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediarySWIFTCountryCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediarySWIFTLocation">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediarySWIFTBranchID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediaryNameAndAddressOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediaryNameAndAddressTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediaryNameAndAddressThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="IntermediaryNameAndAddressFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string">
+
+       	</xsd:restriction>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentAccount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentSWIFTBankID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentSWIFTCountryCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentSWIFTLocation">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentSWIFTBranchID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentNameAndAddressOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentNameAndAddressTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentNameAndAddressThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ReceiverCorrespondentNameAndAddressFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SenderToReceiverInformationOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SenderToReceiverInformationTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SenderToReceiverInformationThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SenderToReceiverInformationFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string">
+
+       	</xsd:restriction>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SenderToReceiverInformationFive">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="SenderToReceiverInformationSix">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaySettlementNarrativeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaySettlementNarrativeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaySettlementNarrativeThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PaySettlementNarrativeFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayUserCodeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayUserCodeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayUserCodeThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ProtectedPaytfrMethod">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="TimeIndicationOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="TimeIndicationTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="TimeIndicationThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="BankOperationCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="InstructionCodeOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="InstructionCodeTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="InstructionCodeThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="InstructionCodeFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="TransactionTypeCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionAccount">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionSWIFTBankID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionSWIFTCountryCode">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionSWIFTLocation">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionSWIFTBranchID">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionNameAndAddressOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionNameAndAddressTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionNameAndAddressThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="ThirdReimbursementInstitutionNameAndAddressFour">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="RegulatoryReportingOne">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="RegulatoryReportingTwo">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="RegulatoryReportingThree">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayAccountUnit">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayAccountServer">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+<xsd:element maxOccurs="1" minOccurs="0" name="PayAccountCurrency">
+       <xsd:simpleType>
+       	<xsd:restriction base="xsd:string"/>
+       </xsd:simpleType>
+</xsd:element>
+    	
+    	</xsd:sequence>
+ </xsd:complexType>
+</xsd:schema>

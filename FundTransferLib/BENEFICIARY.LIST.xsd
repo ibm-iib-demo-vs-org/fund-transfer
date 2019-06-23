@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="BeneficiaryListRequest" type="esbbankgbo:BeneficiaryListRequest"></xsd:element>
+	
+	<xsd:complexType name="BeneficiaryListRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:BeneficiaryListRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="BeneficiaryListRequestBody">
+		<xsd:sequence>
+			<xsd:element name="customerNumber"
+				type="esbbankgbo:CustomerNumber" minOccurs="1" maxOccurs="1">
+			</xsd:element>
+			<xsd:choice maxOccurs="1" minOccurs="0"><xsd:element name="nickname" type="esbbankgbo:NickName" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+				<xsd:element name="BeneficiaryType" maxOccurs="1"
+					minOccurs="0">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="EXTERNAL"></xsd:enumeration>
+							<xsd:enumeration value="INTERNAL"></xsd:enumeration>
+							<xsd:enumeration value="WESTERN_UNION"></xsd:enumeration>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element></xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="BeneficiaryListReply" type="esbbankgbo:BeneficiaryListReply"></xsd:element>
+	
+	<xsd:complexType name="BeneficiaryListReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:BeneficiaryListReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="BeneficiaryListReplyBody">
+		<xsd:sequence>
+
+
+			<xsd:element name="beneficiary" type="esbbankgbo:beneficiaryType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+    <xsd:complexType name="beneficiaryType">
+    	<xsd:sequence>
+    		<xsd:element name="customerNumber"
+    			type="esbbankgbo:CustomerNumber" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+            <xsd:element name="nickname" type="esbbankgbo:NickName" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="externalBeneficiary"
+    			type="esbbankgbo:ExternalBeneficiary" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="internalBeneficiary"
+    			type="esbbankgbo:InternalBeneficiary" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="WUbeneficiary"
+    			type="esbbankgbo:WUBeneficiary" maxOccurs="unbounded"
+    			minOccurs="0">
+    		</xsd:element>
+
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+</xsd:schema>	

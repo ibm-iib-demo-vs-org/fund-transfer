@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<esbbankgbo:AddBeneficiaryRequest xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:esbbank.com/gbo/xml/schemas/v1_0/ ADD.BENEFICIARY.xsd ">
+  <esbbankgbo:eAI_HEADER>
+    <esbbankgbo:referenceNum>esbbankgbo:referenceNum</esbbankgbo:referenceNum>
+    <esbbankgbo:clientChannel>esbbankgbo:clientChannel</esbbankgbo:clientChannel>
+    <esbbankgbo:requestTime>esbbankgbo:requestTime</esbbankgbo:requestTime>
+    <esbbankgbo:retryFlag>Y</esbbankgbo:retryFlag>
+    <esbbankgbo:sucessfulReversalFlag>Y</esbbankgbo:sucessfulReversalFlag>
+    <esbbankgbo:SnapIns>
+      <esbbankgbo:nameValue Name="" Value=""/>
+    </esbbankgbo:SnapIns>
+  </esbbankgbo:eAI_HEADER>
+  <esbbankgbo:eAI_BODY>
+    <esbbankgbo:externalBeneficiary>
+      <esbbankgbo:customerNumber>esbbankgbo:customerNumber</esbbankgbo:customerNumber>
+      <esbbankgbo:nickName>esbbankgbo:nickName</esbbankgbo:nickName>
+      <esbbankgbo:accountNumber>esbbankgbo:accountNumber</esbbankgbo:accountNumber>
+      <esbbankgbo:swiftInfo>
+        <esbbankgbo:beneficiaryName>esbbankgbo:beneficiaryName</esbbankgbo:beneficiaryName>
+        <esbbankgbo:beneficiaryAddress>esbbankgbo:beneficiaryAddress</esbbankgbo:beneficiaryAddress>
+        <esbbankgbo:beneficiaryCity>esbbankgbo:beneficiaryCity</esbbankgbo:beneficiaryCity>
+        <esbbankgbo:beneficiaryBank>
+          <esbbankgbo:bankBIC>esbbankgbo:bankBIC</esbbankgbo:bankBIC>
+          <esbbankgbo:bankName>esbbankgbo:bankName</esbbankgbo:bankName>
+          <esbbankgbo:bankBranch>esbbankgbo:bankBranch</esbbankgbo:bankBranch>
+          <esbbankgbo:bankAddress1>esbbankgbo:bankAddress1</esbbankgbo:bankAddress1>
+          <esbbankgbo:bankAddress2>esbbankgbo:bankAddress2</esbbankgbo:bankAddress2>
+          <esbbankgbo:bankAddress3>esbbankgbo:bankAddress3</esbbankgbo:bankAddress3>
+          <esbbankgbo:bankAddress4>esbbankgbo:bankAddress4</esbbankgbo:bankAddress4>
+          <esbbankgbo:bankCity>esbbankgbo:bankCity</esbbankgbo:bankCity>
+          <esbbankgbo:bankCountry>esbbankgbo:bankCountry</esbbankgbo:bankCountry>
+          <esbbankgbo:bankCountryCode>esbbankgbo:bankCountryCode</esbbankgbo:bankCountryCode>
+        </esbbankgbo:beneficiaryBank>
+      </esbbankgbo:swiftInfo>
+      <esbbankgbo:creationTime>esbbankgbo:creationTime</esbbankgbo:creationTime>
+      <esbbankgbo:receivedTransfer>Y</esbbankgbo:receivedTransfer>
+      <esbbankgbo:mobileNumber></esbbankgbo:mobileNumber>
+      <esbbankgbo:nationality></esbbankgbo:nationality>
+      <esbbankgbo:code></esbbankgbo:code>
+    </esbbankgbo:externalBeneficiary>
+  </esbbankgbo:eAI_BODY>
+</esbbankgbo:AddBeneficiaryRequest>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="ExchangeRateListRequest" type="esbbankgbo:ExchangeRateListRequest"></xsd:element>
+	
+	<xsd:complexType name="ExchangeRateListRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:ExchangeRateListRequestBody" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="ExchangeRateListRequestBody">
+		<xsd:sequence>
+		
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="ExchangeRateListReply" type="esbbankgbo:ExchangeRateListReply"></xsd:element>
+	
+	<xsd:complexType name="ExchangeRateListReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:ExchangeRateListReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ExchangeRateListReplyBody">
+		<xsd:sequence>
+			<xsd:element name="exchangeRateList" type="esbbankgbo:ExchangeRateListType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="ExchangeRateListType">
+		<xsd:sequence>
+            <xsd:element name="rateType" type="esbbankgbo:String" maxOccurs="1" minOccurs="0"></xsd:element>
+            <xsd:element name="currencyCode"
+				type="esbbankgbo:CurrencyCode" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="currencyName" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="currencyNumberOfDecimals"
+				type="esbbankgbo:String" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="buyRate" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="sellRate" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="buyIndicator" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="sellIndicator" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>	

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<esbbankgbo:CurrencyConverterReply xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:esbbank.com/gbo/xml/schemas/v1_0/ CURRENCY.CONVERTER.xsd ">
+  <esbbankgbo:eAI_HEADER>
+    <esbbankgbo:referenceNum>esbbankgbo:referenceNum</esbbankgbo:referenceNum>
+    <esbbankgbo:clientChannel>esbbankgbo:clientChannel</esbbankgbo:clientChannel>
+    <esbbankgbo:requestTime>esbbankgbo:requestTime</esbbankgbo:requestTime>
+
+    <esbbankgbo:SnapIns>
+      <esbbankgbo:nameValue/>
+    </esbbankgbo:SnapIns>
+  </esbbankgbo:eAI_HEADER>
+  <esbbankgbo:eAI_BODY>
+    <esbbankgbo:exchangeRate>14.356</esbbankgbo:exchangeRate>
+    <esbbankgbo:equivalentAmount>1060.325</esbbankgbo:equivalentAmount>
+  </esbbankgbo:eAI_BODY>
+  <esbbankgbo:eAI_STATUS>
+    <esbbankgbo:returnStatus>
+      <esbbankgbo:returnCode>000000</esbbankgbo:returnCode>
+      <esbbankgbo:returnCodeDesc>Success</esbbankgbo:returnCodeDesc>
+    </esbbankgbo:returnStatus>
+    <esbbankgbo:returnStatusProvider>
+      <esbbankgbo:returnCodeProvider>1000</esbbankgbo:returnCodeProvider>
+      <esbbankgbo:returnCodeDescProvider>Success</esbbankgbo:returnCodeDescProvider>
+    </esbbankgbo:returnStatusProvider>
+  </esbbankgbo:eAI_STATUS>
+</esbbankgbo:CurrencyConverterReply>

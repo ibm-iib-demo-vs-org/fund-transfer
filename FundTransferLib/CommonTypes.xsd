@@ -1,0 +1,1689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:complexType name="EAI_HEADER">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+				type="esbbankgbo:ReferenceNum" />
+			<xsd:element minOccurs="1" name="clientChannel"
+				type="esbbankgbo:ClientChannel" />
+			<xsd:element minOccurs="1" name="requestTime" type="esbbankgbo:TimeStamp" />
+			<xsd:element minOccurs="0" name="retryFlag" type="esbbankgbo:Flag" />
+			<xsd:element minOccurs="0" name="sucessfulReversalFlag"
+				type="esbbankgbo:Flag" />
+			<xsd:element minOccurs="0" name="SnapIns" type="esbbankgbo:SnapIns" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="EAI_STATUS">
+		<xsd:annotation>
+			<xsd:documentation>
+				in case of Successfully message processing :
+				Return Status Code
+				Provider Should be 000000 and the desc is Success
+				in case of Failure message processing :
+				Return Status Code Provider
+				Should be the actual back end system error code and its description
+
+			</xsd:documentation>
+		</xsd:annotation>
+
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="returnStatus"
+				type="esbbankgbo:ReturnStatus" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="returnStatusProvider" type="esbbankgbo:ReturnStatusProvider" />
+			<!-- <xsd:element maxOccurs="1" minOccurs="1" name="returnStatusProvider" 
+				type="esbbankgbo:ReturnStatusProvider" /> -->
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="ReturnStatus">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="returnCode"
+				type="esbbankgbo:ReturnCode" />
+			<xsd:element maxOccurs="1" minOccurs="0" name="returnCodeDesc"
+				type="esbbankgbo:ReturnCodeDesc" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ReturnStatusProvider">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="returnCodeProvider"
+				type="esbbankgbo:ReturnCodeProvider" />
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="returnCodeDescProvider" type="esbbankgbo:ReturnCodeDesc" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+
+	<xsd:complexType name="Period">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="fromDate"
+				type="esbbankgbo:Date" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="toDate"
+				type="esbbankgbo:Date" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="SecurityInfo">
+		<xsd:sequence>
+			<xsd:element name="authentication" type="esbbankgbo:Authentication" />
+			<xsd:element minOccurs="0" name="authorization"
+				type="esbbankgbo:Authorization" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Authentication">
+		<xsd:sequence>
+			<xsd:element name="UserId" type="esbbankgbo:String" />
+			<xsd:element name="Password" type="esbbankgbo:String" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Authorization">
+		<xsd:sequence>
+			<xsd:element name="UserId" type="esbbankgbo:String" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="NameValue">
+		<xsd:attribute name="Name" type="esbbankgbo:String" />
+		<xsd:attribute name="Value" type="esbbankgbo:String" />
+	</xsd:complexType>
+
+	<xsd:complexType name="SnapIns" mixed="true">
+		<xsd:sequence>
+
+			<xsd:element name="nameValue" type="esbbankgbo:NameValue"
+				maxOccurs="unbounded" minOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="Flag">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="Y" />
+			<xsd:enumeration value="N" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ServiceName">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="30" />
+			<xsd:pattern value="[a-zA-Z0-9.]*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+
+	<xsd:simpleType name="ClientChannel">
+		<xsd:annotation>
+			<xsd:documentation>
+				MOB = Mobile
+				IVR = IVR
+				CIB = Corporate Banking
+				RIB =
+				Retail Banking
+				ATM =
+				ATM Switch
+				TF = Trade Finance
+				TR = Tressury
+				ECC =
+				Electronic Cheque Clearing
+				BKR = Internal Call or
+				for Testing
+				SAL =
+				Salary Processing
+				IB = Inter Blocks
+				CBS = Core Banking system
+				CRM =Customer relation managment
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="esbbankgbo:String">
+<!-- 
+			<xsd:enumeration value="NA" />
+			<xsd:enumeration value="MOB" />
+			<xsd:enumeration value="IVR" />
+			<xsd:enumeration value="CIB" />
+			<xsd:enumeration value="RIB" />
+			<xsd:enumeration value="ATM" />
+			<xsd:enumeration value="SAL" />
+			<xsd:enumeration value="TF" />
+			<xsd:enumeration value="TR" />
+			<xsd:enumeration value="ECC" />
+			<xsd:enumeration value="BKR" />
+			<xsd:enumeration value="IB" />
+			<xsd:enumeration value="CBS" />
+			<xsd:enumeration value="CMS" />
+ -->
+ 		</xsd:restriction>
+		
+	</xsd:simpleType>
+
+	<xsd:simpleType name="MsgChannel">
+		<xsd:annotation>
+			<xsd:documentation>
+				MQ = MQ
+				HTTP = HTTP
+				WS = Webservice
+				TCIP = TCP IP
+				FILE = File Based
+				BKR =
+				Internal Call or for Testing
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="MQ" />
+			<xsd:enumeration value="HTTP" />
+			<xsd:enumeration value="WS" />
+			<xsd:enumeration value="TCIP" />
+			<xsd:enumeration value="FILE" />
+			<xsd:enumeration value="BKR" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="ReturnCode">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1"></xsd:minLength>
+			<xsd:maxLength value="6"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ReferenceNum">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="24" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ReferenceNumConsumer">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="120" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ReferenceNumProvider">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="120" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="RetryMsg">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:length value="1"></xsd:length>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ReturnCodeDesc">
+		<xsd:restriction base="esbbankgbo:String">
+<!-- 
+			<xsd:minLength value="0" />
+			<xsd:maxLength value="128" />
+ -->				
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ReturnCodeProvider">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="24" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="AcctType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="10" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="AcctClassCode">
+		<xsd:restriction base="esbbankgbo:String">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="AcctStatus">
+		<xsd:restriction base="esbbankgbo:String">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="IBANNumber">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:maxLength value="35"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="AcctNumber">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="13" />
+			<xsd:maxLength value="13" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="OutsideAcctNumber">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="34" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="CustomerNumber">
+		<xsd:restriction base="esbbankgbo:String">
+
+
+			<xsd:length value="6"></xsd:length>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="CustomerType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="20" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="CustomerSegment">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="20" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Gender">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="M" />
+			<xsd:enumeration value="F" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="CurrencyCode">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:length value="3" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Amount">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="16" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Name">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="0" />
+			<xsd:maxLength value="256" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ShortName">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="0" />
+			<xsd:maxLength value="35" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="PersonName">
+		<xsd:sequence>
+			<xsd:element name="nickName" type="esbbankgbo:ShortName"
+				maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element minOccurs="0" name="fullName" type="esbbankgbo:Name" />
+			<xsd:element minOccurs="0" name="firstName" type="esbbankgbo:ShortName" />
+			<xsd:element minOccurs="0" name="LastName" type="esbbankgbo:ShortName" />
+			<xsd:element minOccurs="0" name="SecondName" type="esbbankgbo:ShortName" />
+			<xsd:element minOccurs="0" name="ThirdName" type="esbbankgbo:ShortName" />
+			<xsd:element minOccurs="0" name="FourthName" type="esbbankgbo:ShortName" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="IdType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="50" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="IdNumber">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:maxLength value="24" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="PhoneNumber">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:maxLength value="24" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="Id">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" name="idType" type="esbbankgbo:IdType" />
+			<xsd:element minOccurs="0" name="idNumber" type="esbbankgbo:IdNumber" />
+			<xsd:element minOccurs="0" name="expirtyDate" type="esbbankgbo:Date" />
+			<xsd:element minOccurs="0" name="issueDate" type="esbbankgbo:Date" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="AddressType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="10" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="QIDType1">
+		<xsd:restriction base="esbbankgbo:String">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="QIDType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="11" />
+			<xsd:maxLength value="11" />
+			<xsd:pattern value="\d+"></xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="ContactDetails">
+		<xsd:all>
+			<xsd:element minOccurs="0" name="addressType" type="esbbankgbo:AddressType" />
+			<xsd:element minOccurs="0" name="phone" type="esbbankgbo:PhoneNumber" />
+			<xsd:element name="phoneOffice" type="esbbankgbo:PhoneNumber"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="phoneHome" type="esbbankgbo:PhoneNumber"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element minOccurs="0" name="Mobile" type="esbbankgbo:PhoneNumber" />
+			<xsd:element minOccurs="0" name="fax" type="esbbankgbo:PhoneNumber" />
+			<xsd:element name="email" type="esbbankgbo:EmailAddress"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element minOccurs="0" name="fullAddress" type="esbbankgbo:Name" />
+			<xsd:element minOccurs="0" name="streetNum" type="esbbankgbo:Name" />
+			<xsd:element minOccurs="0" name="streetName" type="esbbankgbo:Name" />
+			<xsd:element minOccurs="0" name="boxNumber" type="esbbankgbo:Name" />
+			<xsd:element minOccurs="0" name="city" type="esbbankgbo:Name" />
+			<xsd:element name="state" type="esbbankgbo:Name"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element minOccurs="0" name="Country" type="esbbankgbo:Name" />
+		</xsd:all>
+	</xsd:complexType>
+
+	<xsd:simpleType name="BranchCode">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="20" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="BankCode">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="20" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="CheckDetails">
+		<xsd:sequence>
+			<xsd:element name="serial" type="esbbankgbo:CheckNum"
+				maxOccurs="1" minOccurs="1" />
+			<xsd:element name="sequence" type="esbbankgbo:CheckNum"
+				maxOccurs="1" minOccurs="1" />
+			<xsd:element name="amount" type="esbbankgbo:Amount"
+				maxOccurs="1" minOccurs="1" />
+			<xsd:element name="date" type="esbbankgbo:Date"
+				maxOccurs="1" minOccurs="1" />
+			<xsd:element name="currencyCode" type="esbbankgbo:CurrencyCode"
+				maxOccurs="1" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="BankInfo">
+		<xsd:sequence>
+			<xsd:element name="BankCode" type="esbbankgbo:BankCode"
+				maxOccurs="1" minOccurs="0" />
+			<xsd:element name="BankBranchCode" type="esbbankgbo:BranchCode"
+				maxOccurs="1" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="CheckNum">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="96" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="CheckStatus">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="Accepted" />
+			<xsd:enumeration value="Rejected" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="NickName">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="30" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="BeneficiaryID">
+		<xsd:sequence>
+			<xsd:element name="customerNumber" type="esbbankgbo:CustomerNumber"
+				maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element minOccurs="1" name="nickName" type="esbbankgbo:NickName" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="BenificiaryUtilInfo">
+		<xsd:sequence>
+			<xsd:element name="debitAccount" type="esbbankgbo:AcctNumber"
+				maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="customerNumber" type="esbbankgbo:CustomerNumber"
+				maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element minOccurs="1" name="nickName" type="esbbankgbo:NickName" />
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="PaymentDescription">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="0" />
+			<xsd:maxLength value="35" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ChargeCodeType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="0" />
+			<xsd:maxLength value="2" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:complexType name="PostingAccount">
+		<xsd:sequence>
+			<xsd:element name="acctNumber" type="esbbankgbo:AcctNumber"  maxOccurs="1" minOccurs="1" />
+			<xsd:element name="currencyCode" type="esbbankgbo:CurrencyCode" maxOccurs="1" minOccurs="1" />
+			<xsd:element name="amount" type="esbbankgbo:Amount"		maxOccurs="1" minOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TransferCharges">
+		<xsd:sequence>
+			<xsd:element name="debitAcctNumber" type="esbbankgbo:AcctNumber"  maxOccurs="1" minOccurs="1" />
+			<xsd:element name="debitCurrencyCode" type="esbbankgbo:CurrencyCode" maxOccurs="1" minOccurs="1" />
+			<xsd:element name="chargeAmount" type="esbbankgbo:Amount" maxOccurs="1" minOccurs="1"/>
+		<xsd:choice>
+			<xsd:element name="chargeCode" type="esbbankgbo:ChargeCodeType" maxOccurs="1" minOccurs="1" />
+			<xsd:element name="GLAcctNumber" type="esbbankgbo:AcctNumber"  maxOccurs="1" minOccurs="1" />
+		</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ChargeCodeDetail is for ECC services only  -->
+	<xsd:complexType name="ChargeCodeDetail">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" name="chargeCode" type="esbbankgbo:Int" />
+			<xsd:element minOccurs="1" name="chargeAmount" type="esbbankgbo:Amount" />
+			<xsd:element minOccurs="0" name="chargeCurrencyCode"
+				type="esbbankgbo:CurrencyCode" />
+			<xsd:element minOccurs="0" name="chargeValueDate" type="esbbankgbo:Date" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="Date">
+		<xsd:restriction base="xsd:date">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="String">
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Int">
+		<xsd:restriction base="xsd:int">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Decimal">
+		<xsd:restriction base="xsd:decimal">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="TimeStamp">
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Time">
+		<xsd:restriction base="xsd:time">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Boolean">
+		<xsd:restriction base="xsd:boolean">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Byte">
+		<xsd:restriction base="xsd:byte">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Float">
+		<xsd:restriction base="xsd:float">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="CustomerStatus">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="25" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="DateofBirth">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="10" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Language">
+		<xsd:restriction base="esbbankgbo:String">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Description">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:maxLength value="256" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ErrorCode">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="StatusCode">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="BrokerName">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="FlowName">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="StatusMessage">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="IsVIP">
+		<xsd:restriction base="esbbankgbo:Flag"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="CheckSeqNum">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="CardNumber">
+		<xsd:restriction base="esbbankgbo:String">
+
+
+			<xsd:minLength value="14"></xsd:minLength>
+			<xsd:maxLength value="16"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="CardType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="Debit"></xsd:enumeration>
+			<xsd:enumeration value="Credit"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="CardExpiryDateType">
+		<xsd:annotation>
+			<xsd:documentation>Format: MM/YY</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="4"></xsd:minLength>
+			<xsd:maxLength value="5"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="ISODateType">
+		<xsd:annotation>
+			<xsd:documentation>ISO foramt string YYYYMMDD exp;(20120531)
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="esbbankgbo:String">
+
+			<xsd:length value="8"></xsd:length>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="Number">
+		<xsd:restriction base="esbbankgbo:Int"></xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="AuthCodeType">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="DebitType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="Normal"></xsd:enumeration>
+			<xsd:enumeration value="Force"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="PDCType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="Lodging"></xsd:enumeration>
+			<xsd:enumeration value="Reverse"></xsd:enumeration>
+			<xsd:enumeration value="Delete"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="EmailAddress">
+		<xsd:restriction base="esbbankgbo:String"></xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="ChargeRegulation">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="Payee"></xsd:enumeration>
+			<xsd:enumeration value="Payer"></xsd:enumeration>
+			<xsd:enumeration value="Share"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="BenificiaryType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="EXTERNAL"></xsd:enumeration>
+			<xsd:enumeration value="WITHINBANK"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="Remarks">
+		<xsd:restriction base="esbbankgbo:String" />
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Status">
+		<xsd:restriction base="esbbankgbo:String" />
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="ManagementOp">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:enumeration value="GET" />
+			<xsd:enumeration value="ADD" />
+			<xsd:enumeration value="UPDATE" />
+			<xsd:enumeration value="DELETE" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="UtilityServiceNumber">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:maxLength value="30"></xsd:maxLength>
+			<xsd:minLength value="1"></xsd:minLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="UtilityAccountNumber">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:maxLength value="30"></xsd:maxLength>
+			<xsd:minLength value="1"></xsd:minLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="UtilityNumber">
+		<xsd:choice>
+			<xsd:element name="utilityPhoneNumber" type="esbbankgbo:UtilityServiceNumber" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="utilityAccountNumber" type="esbbankgbo:UtilityAccountNumber" minOccurs="1" maxOccurs="1"/>
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:simpleType name="OoredooPaymentMode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Cash" />
+			<xsd:enumeration value="Internal Cheque" />
+			<xsd:enumeration value="Account Transfer" />
+			<xsd:enumeration value="External Cheque" />
+			<xsd:enumeration value="Credit Card" />
+			<xsd:enumeration value="ATM" />
+			<xsd:enumeration value="E-Payment" />
+			<xsd:enumeration value="Home Banking" />
+			<xsd:enumeration value="Internet Banking" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="QatariID">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:length value="11" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="PostCode">
+		<xsd:restriction base="esbbankgbo:String">
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="Balance">
+		<xsd:sequence>
+			<xsd:element name="amount" minOccurs="1"  maxOccurs="1" type="esbbankgbo:Amount" />
+			<xsd:element name="creditDebitFlag" minOccurs="0"  maxOccurs="1" type="esbbankgbo:CreditDebitFlag" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="CreditDebitFlag">
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="DealReference">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="16" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DepDealReference">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="13" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="PeriodCode">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1"></xsd:minLength>
+			<xsd:maxLength value="4"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DealType">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1"></xsd:minLength>
+			<xsd:maxLength value="3"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="DealBranch">
+		<xsd:restriction base="esbbankgbo:String">
+			<xsd:minLength value="1"></xsd:minLength>
+			<xsd:maxLength value="4"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:complexType name="Beneficiary">
+		<xsd:sequence>
+			<xsd:element name="beneficiaryID"
+				type="esbbankgbo:BeneficiaryID" minOccurs="1" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="accountNumber"
+				type="esbbankgbo:IBANNumber" minOccurs="1" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="type" type="esbbankgbo:BenificiaryType"
+				minOccurs="1" maxOccurs="1">
+			</xsd:element>
+
+			<xsd:element name="accountCurrency"
+				type="esbbankgbo:CurrencyCode" minOccurs="1" maxOccurs="1">
+			</xsd:element>
+
+			<xsd:element name="swiftInfo" type="esbbankgbo:SwiftInfo"
+				minOccurs="0" maxOccurs="1">
+			</xsd:element>
+
+			<xsd:element name="beneficiaryStatistics" type="esbbankgbo:BeneficiaryStatistics" minOccurs="0" maxOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+		<xsd:complexType name="ExternalBeneficiary">
+		<xsd:sequence>
+
+			<xsd:element name="customerNumber"
+				type="esbbankgbo:CustomerNumber" maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element minOccurs="1" name="nickName"
+				type="esbbankgbo:NickName" maxOccurs="1" />
+			<xsd:element name="accountNumber"
+				type="esbbankgbo:IBANNumber" minOccurs="1" maxOccurs="1">
+			</xsd:element>
+
+
+
+			<xsd:element name="swiftInfo" type="esbbankgbo:SwiftInfo"
+				minOccurs="1" maxOccurs="1">
+			</xsd:element>
+
+			<xsd:element name="creationTime" type="esbbankgbo:TimeStamp"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="receivedTransfer" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"></xsd:enumeration>
+						<xsd:enumeration value="N"></xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="mobileNumber" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="nationality" type="esbbankgbo:String" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="code" type="esbbankgbo:String" maxOccurs="1" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+		</xsd:complexType>
+
+
+	<xsd:complexType name="SwiftInfo">
+		<xsd:sequence>
+			<xsd:element name="beneficiaryName" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="35"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="beneficiaryAddress" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="35"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="beneficiaryCity" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="35"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="beneficiaryBank" type="esbbankgbo:BeneficiaryBankInfo" minOccurs="1" maxOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name='BankBICType'>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="0"></xsd:minLength>
+			<xsd:maxLength value="11"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+    <xsd:complexType name="BeneficiaryBankInfo">
+    	<xsd:sequence>
+    		<xsd:element name="bankBIC" minOccurs="1" maxOccurs="1" type="esbbankgbo:BankBICType">    		</xsd:element>
+    		<xsd:element name="bankName" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="200"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankBranch" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="200"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankAddress1" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="200"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankAddress2" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="200"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankAddress3" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="200"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankAddress4" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="200"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankCity" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="200"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankCountry" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="100"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="bankCountryCode" minOccurs="0" maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="2"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    	</xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:simpleType name="BeneficiaryStatusType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="I"></xsd:enumeration>
+    		<xsd:enumeration value="A"></xsd:enumeration>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="BeneficiaryStatus">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="I"></xsd:enumeration>
+    		<xsd:enumeration value="A"></xsd:enumeration>
+    		<xsd:enumeration value="D"></xsd:enumeration>
+    		<xsd:maxLength value="1"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="BeneficiaryStatistics">
+    	<xsd:sequence>
+    		<xsd:element name="status"
+    			type="esbbankgbo:BeneficiaryStatus" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="creationTime" type="esbbankgbo:TimeStamp"
+    			minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="activationTime"
+    			type="esbbankgbo:TimeStamp" minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="activationCode" type="esbbankgbo:ActivationCodeType" minOccurs="0" maxOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+			
+
+    <xsd:complexType name="UtilityBen">
+    	<xsd:sequence>
+    		<xsd:element name="utilityBenID"
+    			type="esbbankgbo:BeneficiaryID" minOccurs="1" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="provider" type="esbbankgbo:ProviderType"
+    			minOccurs="1" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="utilityNumber"
+    			type="esbbankgbo:UtilityNumber" minOccurs="1" maxOccurs="1">
+    		</xsd:element>
+
+    		<xsd:element name="debitAccountNumber"
+    			type="esbbankgbo:AcctNumber" minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="utilityBenStatistics"
+    			type="esbbankgbo:BeneficiaryStatistics" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+
+    		<xsd:element name="QID" type="esbbankgbo:QIDType" maxOccurs="1" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="ProviderType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:maxLength value="30"></xsd:maxLength>
+    		<xsd:minLength value="1"></xsd:minLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ServiceNumberType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="30"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ServiceAcctNumberType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:maxLength value="30"></xsd:maxLength>
+    		<xsd:minLength value="1"></xsd:minLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ActivationCodeType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="50"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PaymentType">
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+    </xsd:simpleType>
+
+  
+  	<xsd:simpleType name="Frequency">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="MONTHLY"></xsd:enumeration>
+			<xsd:enumeration value="QUARTERLY"></xsd:enumeration>
+			<xsd:enumeration value="HALFYEARLY"></xsd:enumeration>
+			<xsd:enumeration value="YEARLY"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+  
+    <xsd:complexType name="StandingOrderData">
+    	<xsd:sequence>
+       		<xsd:element name="transferAmount" minOccurs="0"
+       			maxOccurs="1" type="esbbankgbo:Amount">
+
+    		</xsd:element>
+    		<xsd:element name="standingOrderFrequency" minOccurs="1"
+    			maxOccurs="1" type="esbbankgbo:Frequency">
+    		
+    		</xsd:element>
+
+    		<xsd:element name="debitAccountCurrency"
+    			type="esbbankgbo:CurrencyCode" minOccurs="1" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="transferCurrency" type="esbbankgbo:CurrencyCode" minOccurs="1" maxOccurs="1"></xsd:element>
+    		<xsd:element name="debitAccount" type="esbbankgbo:AcctNumber" minOccurs="1" maxOccurs="1"></xsd:element>
+    		<xsd:choice>
+    			<xsd:element name="creditAccount"
+    				type="esbbankgbo:IBANNumber" minOccurs="1" maxOccurs="1">
+    			</xsd:element>
+                <xsd:element name="externalSObeneficiary" maxOccurs="1" minOccurs="1">
+                	<xsd:complexType>
+                		<xsd:sequence>
+                			<xsd:element name="beneficiaryInfo"
+                				type="esbbankgbo:TransferBeneficiaryInfo" maxOccurs="1" minOccurs="1">
+                			</xsd:element>
+                			<xsd:element name="purposeOfTransfer"
+                				type="esbbankgbo:PurposeOfTransfer" maxOccurs="1" minOccurs="1">
+                			</xsd:element>
+                		</xsd:sequence>
+                	</xsd:complexType></xsd:element>
+    		</xsd:choice>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+	<xsd:complexType name="TransferBeneficiaryInfo">
+		<xsd:sequence>
+			<xsd:element name="beneficiaryAccount"
+				type="esbbankgbo:IBANNumber" minOccurs="1" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="beneficiaryName" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="35"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="beneficiaryAddress" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="35"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="beneficiaryCity" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="35"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="bankBIC" type="esbbankgbo:BankBICType"
+				minOccurs="1" maxOccurs="1">
+			</xsd:element>
+			<xsd:element name="bankBranch" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+				<!-- 		<xsd:maxLength value="35"></xsd:maxLength>  -->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+    <xsd:complexType name="PurposeOfTransfer">
+    	<xsd:sequence>
+    		<xsd:element name="code" minOccurs="1"
+    			maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="2"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="description" minOccurs="0"
+    			maxOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="35"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+      <xsd:simpleType name="CardIssuerType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Visa"></xsd:enumeration>
+			<xsd:enumeration value="Master"></xsd:enumeration>
+			<xsd:enumeration value="Diners"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+      
+      	<xsd:simpleType name="CardIssuer">
+      				<xsd:restriction base="xsd:string">
+      					<xsd:enumeration value="Visa"></xsd:enumeration>
+      					<xsd:enumeration value="Master"></xsd:enumeration>
+      					<xsd:enumeration value="Diners"></xsd:enumeration>
+      				</xsd:restriction>
+      			</xsd:simpleType>
+      			
+    <xsd:complexType name="OriginDetails">
+    	<xsd:sequence>
+    		<xsd:element name="Name" minOccurs="1" maxOccurs="1"
+    			type="xsd:string">
+    		</xsd:element>
+    		<xsd:element name="Value" minOccurs="1" maxOccurs="1"
+    			type="xsd:string">
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+	<xsd:complexType name="WUPaymentDetails">
+		<xsd:sequence>
+			<xsd:element name="SenderAmount" type="esbbankgbo:Amount"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="TotalSenderAmount"
+				type="esbbankgbo:Amount" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="ReceiverAmount" type="esbbankgbo:Amount"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="feesAmount" type="esbbankgbo:Amount"
+				minOccurs="1" maxOccurs="1" />
+            <xsd:element name="promotion" type="esbbankgbo:WUPromotionType" maxOccurs="1" minOccurs="0"></xsd:element>
+            <xsd:element name="taxAmount" type="esbbankgbo:Amount"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="exchangeRate" type="esbbankgbo:String"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="ReceiverCurrencyCode"
+				type="esbbankgbo:CurrencyCode" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+    <xsd:simpleType name="CountryCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="3"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="WUAccountNumber">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="11"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="WUPromoCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="30"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="WUNameBase">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="80"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="WUIDNumber">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="80"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="city">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="yes_no">
+   	 <xsd:restriction base="xsd:boolean">
+<!--            	<xs:minLength value="0"/>-->
+<!--		<xs:maxLength value="1"/>-->
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="phone">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="31"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="country_name">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="40"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="state_iso_code">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="12"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+	<xsd:complexType name="WUSenderInfo">
+		<xsd:sequence>
+				<xsd:element name="name" type="esbbankgbo:WUName" minOccurs="1" maxOccurs="1"/>
+				<xsd:element name="address" type="esbbankgbo:WUSenderAddress" minOccurs="1" maxOccurs="1"/>				
+				<xsd:element name="customerID" type="esbbankgbo:WUCustomerID" minOccurs="1" maxOccurs="1"/>				
+				<xsd:element name="WUAccountNumber" type="esbbankgbo:WUAccountNumber" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="debitAccountNumber" type="esbbankgbo:AcctNumber" minOccurs="1" maxOccurs="1"/>				
+				<xsd:element name="dateOfBirth" type="xsd:date" minOccurs="1" maxOccurs="1"/>				
+				<xsd:element name="countryOfBirth" type="esbbankgbo:country_name" minOccurs="1" maxOccurs="1"/>				
+				<xsd:element name="contactPhone" type="esbbankgbo:phone" minOccurs="1" maxOccurs="1"/>				
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="WUReciverInfo">
+		<xsd:sequence>
+				<xsd:element name="name" type="esbbankgbo:WUName" minOccurs="1" maxOccurs="1"/>
+				<xsd:element name="address" type="esbbankgbo:WUReceiverAddress" minOccurs="1" maxOccurs="1"/>				
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="WUName">
+		<xsd:sequence>
+				<xsd:element name="firstName" type="esbbankgbo:WUNameBase" minOccurs="1" maxOccurs="1"/>
+				<xsd:element name="lastName" type="esbbankgbo:WUNameBase" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+    <xsd:simpleType name="address_line">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="84"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="state_province">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="40"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="postal_code">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="40"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="serviceIDType">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="4"></xsd:maxLength>
+			<xsd:minLength value="1"></xsd:minLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="WUSenderAddress">
+		<xsd:sequence>
+            <xsd:element minOccurs="1" name="street" type="esbbankgbo:address_line" maxOccurs="1"/>
+            <xsd:element minOccurs="0" name="postal_code" type="esbbankgbo:postal_code"/>
+            <xsd:element minOccurs="1" name="city" type="esbbankgbo:city" maxOccurs="1"/>
+            <xsd:element minOccurs="0" name="stateCode" type="esbbankgbo:state_iso_code"/>
+            <xsd:element minOccurs="1" name="countryCode" type="esbbankgbo:CountryCode"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="WUReceiverAddress">
+		<xsd:sequence>
+            <xsd:element minOccurs="0" name="street" type="esbbankgbo:address_line" maxOccurs="1"/>
+            <xsd:element minOccurs="0" name="postal_code" type="esbbankgbo:postal_code"/>
+            <xsd:element minOccurs="0" name="city" type="esbbankgbo:city" maxOccurs="1"/>
+            <xsd:element minOccurs="0" name="stateCode" type="esbbankgbo:state_iso_code"/>
+            <xsd:element minOccurs="1" name="countryCode" type="esbbankgbo:CountryCode"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="WUCustomerID">
+		<xsd:sequence>
+				<xsd:element name="IDType" type="esbbankgbo:WUID_Document_Type" minOccurs="1" maxOccurs="1"/>
+				<xsd:element name="IDNumber" type="esbbankgbo:WUIDNumber" minOccurs="1" maxOccurs="1"/>
+	            <xsd:element minOccurs="0" name="issue_date" type="xsd:date"/>
+	            <xsd:element minOccurs="0" name="issue_place" type="esbbankgbo:city"/>
+	            <xsd:element minOccurs="1" name="issue_country" type="esbbankgbo:country_name"/>
+	            <xsd:element minOccurs="0" name="expiration_date" type="xsd:date"/>
+	            <xsd:element minOccurs="0" name="id_expires" type="esbbankgbo:yes_no"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:simpleType name="WUID_Document_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="PASSPORT"/>
+            <xsd:enumeration value="NATIONAL_ID"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="WU_transaction_id">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="16"/>
+            <xsd:maxLength value="16"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+   	<xsd:simpleType name="WU_MTCN">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="10"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="WU_Transaction_status">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="PAID"/>
+            <xsd:enumeration value="NOT PAID"/>
+            <xsd:enumeration value="ON HOLD"/>
+            <xsd:enumeration value="NOT AVAILABLE"/>
+            <xsd:enumeration value="AVAILABLE"/>
+            <xsd:enumeration value="PAID_OTHER"/>
+            <xsd:enumeration value="QUEUED"/>
+            <xsd:enumeration value="CANCELLED"/>
+            <xsd:enumeration value="SUSPENDED"/>
+            <xsd:enumeration value="UNKNOWN"/>
+            <xsd:enumeration value="PURGED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+      			
+
+    <xsd:simpleType name="BranchNumber">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:maxLength value="4"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="WUBeneficiary">
+    	<xsd:sequence>
+    		<xsd:element name="customerNumber"
+    			type="esbbankgbo:CustomerNumber" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="nickName" type="esbbankgbo:NickName"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="firstName" type="esbbankgbo:WUNameBase"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="lastName" type="esbbankgbo:WUNameBase"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="secondName" type="esbbankgbo:String"
+    			maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="countryCode"
+    			type="esbbankgbo:CountryCode" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="preferredCurrency"
+    			type="esbbankgbo:CurrencyCode" maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+
+
+    		<xsd:element name="creationTime" type="esbbankgbo:TimeStamp"
+    			maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="cardNumber" type="esbbankgbo:WUAccountNumber" maxOccurs="1" minOccurs="0"></xsd:element>
+    		<xsd:element name="state" type="esbbankgbo:String"
+    			maxOccurs="1" minOccurs="0"/>
+    		<xsd:element name="stateName" type="esbbankgbo:String"
+    			maxOccurs="1" minOccurs="0"/>
+    		<xsd:element name="city" type="esbbankgbo:String"
+    			maxOccurs="1" minOccurs="0"/>
+    		<xsd:element name="receivedTransfer" maxOccurs="1"
+    			minOccurs="0">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:enumeration value="Y"></xsd:enumeration>
+    					<xsd:enumeration value="N"></xsd:enumeration>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="InternalBeneficiary">
+    	<xsd:sequence>
+    		<xsd:element name="customerNumber"
+    			type="esbbankgbo:CustomerNumber" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="nickName" type="esbbankgbo:NickName"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="IBAN" type="esbbankgbo:IBANNumber"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="name" maxOccurs="1" minOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:maxLength value="100"></xsd:maxLength>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="creationTime" type="esbbankgbo:TimeStamp" maxOccurs="1" minOccurs="0"></xsd:element>
+    		<xsd:element name="receivedTransfer" maxOccurs="1"
+    			minOccurs="0">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:enumeration value="Y"></xsd:enumeration>
+    					<xsd:enumeration value="N"></xsd:enumeration>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="notificatonTypeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="S"></xsd:enumeration>
+			<xsd:enumeration value="E"></xsd:enumeration>
+
+			<xsd:length value="1"></xsd:length>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="scheduleType">
+	<xsd:restriction base="xsd:string">
+						<xsd:pattern value="[Y,N]{7}"></xsd:pattern>
+					</xsd:restriction>
+					</xsd:simpleType>
+				
+				<xsd:simpleType name="hourType">
+		<xsd:restriction base="xsd:string">
+		
+					
+						<xsd:pattern value="([01]?[0-9]|2[0-3])"></xsd:pattern>
+						
+                           <xsd:length value="2"></xsd:length>
+				</xsd:restriction>
+	</xsd:simpleType>
+				<xsd:simpleType name="FrequencyCodeType">
+					<xsd:restriction base="xsd:string">
+
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+				<xsd:complexType name="BalanceOrder">
+    	<xsd:sequence>
+            <xsd:element name="accountNumber" type="esbbankgbo:AcctNumber" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="balanceOrderType" maxOccurs="1"
+    			minOccurs="1">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:enumeration value="Deficit"></xsd:enumeration>
+    					<xsd:enumeration value="Surplus"></xsd:enumeration>
+    					<xsd:enumeration value="Realtime"></xsd:enumeration>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="frequency" maxOccurs="1" minOccurs="0"
+    			type="esbbankgbo:Frequency">
+
+    		</xsd:element>
+    		<xsd:element name="balance" type="esbbankgbo:Amount"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="firstActionDate" type="esbbankgbo:Date"
+    			maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="lastActionDate" type="esbbankgbo:Date"
+    			maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="fundingOrReceiveAccounts"
+    			type="esbbankgbo:FundingOrReceivingAccountsType" maxOccurs="1"
+    			minOccurs="1">
+    		</xsd:element>
+
+
+    	</xsd:sequence>
+				</xsd:complexType>
+
+    <xsd:complexType name="FundingOrReceivingAccountsType">
+    	<xsd:sequence>
+    		<xsd:element name="Account1"
+    			type="esbbankgbo:AcctNumber" maxOccurs="1" minOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="Account2"
+    			type="esbbankgbo:AcctNumber" maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="Account3"
+    			type="esbbankgbo:AcctNumber" maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="IdentificationQuestionType">
+    <xsd:sequence>
+    <xsd:element name="question" type="esbbankgbo:String" minOccurs="1" maxOccurs="1"/>
+     <xsd:element name="answer" type="esbbankgbo:String" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="WUPromotionType">
+    	<xsd:sequence>
+    		<xsd:element name="promotionCode"
+    			type="esbbankgbo:WUPromoCode" maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="discountAmount"
+    			type="esbbankgbo:Amount" maxOccurs="1" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="status" type="esbbankgbo:Number" maxOccurs="1" minOccurs="0"></xsd:element>
+    		<xsd:element name="message" type="esbbankgbo:String" maxOccurs="1" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+    	<xsd:simpleType name="OTPTokenSerialNo">
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="OTPUserName">
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="OTPStatisPassword">
+		<xsd:restriction base="xsd:string">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="OTPPassword">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern
+				value="\d+">
+			</xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+		<xsd:simpleType name="chargesRegulation">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Payer"></xsd:enumeration>
+			<xsd:enumeration value="Payee"></xsd:enumeration>
+			<xsd:enumeration value="Share"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="LanguageCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AR"></xsd:enumeration>
+			<xsd:enumeration value="GB"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+<!-- 	updated by noha 24/3/2019 common in hold & release-->
+    <xsd:simpleType name="HoldReference">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="3"></xsd:maxLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	
+	
+</xsd:schema>	
+

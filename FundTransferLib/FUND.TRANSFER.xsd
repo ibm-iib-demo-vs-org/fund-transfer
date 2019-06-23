@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="FundTransferRequest" type="esbbankgbo:FundTransferRequest"></xsd:element>
+	
+	<xsd:complexType name="FundTransferRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:FundTransferRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="FundTransferRequestBody">
+		<xsd:sequence>
+			<xsd:element name="transferType" maxOccurs="1"
+				minOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="OWNACCOUNTS"></xsd:enumeration>
+						<xsd:enumeration value="WITHINBANK"></xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="customerNumber"
+				type="esbbankgbo:CustomerNumber" maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="debitAccount"
+				type="esbbankgbo:PostingAccount" maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="creditAccount"
+				type="esbbankgbo:PostingAccount" maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="transferDate" type="esbbankgbo:Date"
+				maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="creditAccountName" type="esbbankgbo:String" maxOccurs="1" minOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="FundTransferReply" type="esbbankgbo:FundTransferReply"></xsd:element>
+	
+	<xsd:complexType name="FundTransferReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:FundTransferReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="FundTransferReplyBody">
+		<xsd:sequence>
+			<xsd:element name="transferAuthCode"
+				type="esbbankgbo:AuthCodeType" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="chargesAuthCode"
+				type="esbbankgbo:AuthCodeType" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+</xsd:schema>	

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+
+	<xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>
+	<xsd:element name="NostroBankListRequest"
+		type="esbbankgbo:NostroBankListRequest">
+	</xsd:element>
+
+	<xsd:complexType name="NostroBankListRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY"
+				type="esbbankgbo:NostroBankListRequestBody" maxOccurs="1"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="NostroBankListRequestBody">
+		<xsd:sequence>
+			<xsd:element name="CurrencyCode"
+				type="esbbankgbo:CurrencyCode" maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="destinationCountry"
+				type="esbbankgbo:CountryCode" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="beneficiaryBankBIC"
+				type="esbbankgbo:BankBICType" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="amount" type="esbbankgbo:Amount"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="NostroBankListReply"
+		type="esbbankgbo:NostroBankListReply">
+	</xsd:element>
+
+	<xsd:complexType name="NostroBankListReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY"
+				type="esbbankgbo:NostroBankListReplyBody" minOccurs="0" />
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="NostroBankListReplyBody">
+		<xsd:sequence>
+			<xsd:element name="NostroBankList"
+				type="esbbankgbo:NostroBankListType" maxOccurs="unbounded"
+				minOccurs="0">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="NostroBankListType">
+		<xsd:sequence>
+
+			<xsd:element name="currency" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="branchMonotonic" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+
+			<xsd:element name="nostro" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="nostroDescription"
+				type="esbbankgbo:String" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="nostroBranchNumber"
+				type="esbbankgbo:String" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="nostroBasicNumber"
+				type="esbbankgbo:String" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+
+			<xsd:element name="nostroSuffix" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="transferMethod" type="esbbankgbo:String"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+
+
+
+
+
+
+
+
+
+
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

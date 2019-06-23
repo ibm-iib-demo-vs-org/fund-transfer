@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="StandingOrderMGMRequest" type="esbbankgbo:StandingOrderMGMRequest"></xsd:element>
+	
+	<xsd:complexType name="StandingOrderMGMRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:StandingOrderMGMRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="StandingOrderMGMRequestBody">
+		<xsd:sequence>
+
+			<xsd:element name="standingOrderMGM"
+				type="esbbankgbo:StandingOrderMGMType">
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="StandingOrderMGMReply" type="esbbankgbo:StandingOrderMGMReply"></xsd:element>
+	
+	<xsd:complexType name="StandingOrderMGMReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:StandingOrderMGMReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="StandingOrderMGMReplyBody">
+		<xsd:sequence>
+
+			<xsd:element name="transferReference" type="esbbankgbo:ReferenceNum" minOccurs="0" maxOccurs="1"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="StandingOrderMGMType">
+		<xsd:sequence>
+			<xsd:element name="actionType" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+
+
+
+
+						<xsd:enumeration value="ADD"></xsd:enumeration>
+						<xsd:enumeration value="UPDATE"></xsd:enumeration>
+						<xsd:enumeration value="DELETE"></xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+
+			<xsd:element name="standingOrderReference" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="16"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="customerNumber" minOccurs="1"
+				maxOccurs="1" type="esbbankgbo:CustomerNumber">
+			</xsd:element>
+
+			<xsd:element name="startDate" minOccurs="1" maxOccurs="1"
+				type="esbbankgbo:Date">
+
+			</xsd:element>
+			<xsd:element name="endDate" minOccurs="0" maxOccurs="1"
+				type="esbbankgbo:Date">
+
+			</xsd:element>
+
+
+			<xsd:element name="standingOrderData" minOccurs="1"
+				maxOccurs="1" type="esbbankgbo:StandingOrderData">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>	

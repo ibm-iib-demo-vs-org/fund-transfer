@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+
+	<xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>
+	<xsd:element name="AuthorizedSignatoryRequest"
+		type="esbbankgbo:AuthorizedSignatoryRequest" />
+
+	<xsd:complexType name="AuthorizedSignatoryRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY"
+				type="esbbankgbo:AuthorizedSignatoryRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+
+	<xsd:complexType name="AuthorizedSignatoryRequestBody">
+		<xsd:choice>
+			<xsd:element name="CustomerNumber"
+				type="esbbankgbo:CustomerNumber" />
+			<xsd:element name="QatariID" type="esbbankgbo:QatariID" />
+			<xsd:element name="accountNumber"
+				type="esbbankgbo:AcctNumber" minOccurs="0" maxOccurs="1">
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:element name="AuthorizedSignatoryReply"
+		type="esbbankgbo:AuthorizedSignatoryReply" />
+
+	<xsd:complexType name="AuthorizedSignatoryReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY"
+				type="esbbankgbo:AuthorizedSignatoryReplyBody" minOccurs="0" />
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AuthorizedSignatoryReplyBody">
+		<xsd:sequence>
+			<xsd:element name="authorizedSignatories"
+				type="esbbankgbo:AuthorizedSignatory" maxOccurs="unbounded"
+				minOccurs="0">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="AuthorizedSignatory">
+		<xsd:sequence>
+			<xsd:element name="Qid" type="esbbankgbo:QIDType"
+				maxOccurs="1" minOccurs="1" />
+			<xsd:element name="authorizedName" minOccurs="1"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="35"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="limitAmount" type="esbbankgbo:Amount"
+				maxOccurs="1" minOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

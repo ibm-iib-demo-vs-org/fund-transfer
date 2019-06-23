@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="EmailRequest" type="esbbankgbo:EmailRequest"></xsd:element>
+	
+	<xsd:complexType name="EmailRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:EmailRequestBody" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="EmailRequestBody">
+		<xsd:sequence>
+			<xsd:element name="EmailMessage" minOccurs="1"
+				maxOccurs="1" type="esbbankgbo:EmailMessageType">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="EmailReply" type="esbbankgbo:EmailReply"></xsd:element>
+	
+	<xsd:complexType name="EmailReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:EmailReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="EmailReplyBody">
+		<xsd:sequence>
+		</xsd:sequence>
+	</xsd:complexType>
+
+		<xsd:simpleType name="EmailText">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="1"></xsd:minLength>
+					<xsd:maxLength value="150"></xsd:maxLength>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+
+		<xsd:simpleType name="EmailLangType">
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="EN"></xsd:enumeration>
+				<xsd:enumeration value="AR"></xsd:enumeration>
+			</xsd:restriction>
+		</xsd:simpleType>
+
+
+		<xsd:complexType name="EmailMessageType">
+			<xsd:sequence>
+				<xsd:element name="fromAddress" type="xsd:string"
+					maxOccurs="1" minOccurs="0">
+				</xsd:element>
+				<xsd:element name="toEmailAddress" type="xsd:string"
+					maxOccurs="unbounded" minOccurs="1">
+				</xsd:element>
+				<xsd:element name="subject" maxOccurs="1"
+					minOccurs="1">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1"></xsd:minLength>
+
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="body" type="xsd:string" maxOccurs="1"
+					minOccurs="1">
+				</xsd:element>
+
+			</xsd:sequence>
+		</xsd:complexType>
+</xsd:schema>	

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<esbbankgbo:GetBlackOutDatesReply xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:esbbank.com/gbo/xml/schemas/v1_0/ BLACK.OUT.DATES.xsd ">
+  <esbbankgbo:eAI_HEADER>esbbankgbo:eAI_HEADER</esbbankgbo:eAI_HEADER>
+  <esbbankgbo:eAI_BODY>
+    <esbbankgbo:blackOutDate>
+      <esbbankgbo:day>esbbankgbo:day</esbbankgbo:day>
+    </esbbankgbo:blackOutDate>
+    <esbbankgbo:blackOutDate>
+      <esbbankgbo:day>esbbankgbo:day</esbbankgbo:day>
+    </esbbankgbo:blackOutDate>
+  </esbbankgbo:eAI_BODY>
+  <esbbankgbo:eAI_STATUS>esbbankgbo:eAI_STATUS</esbbankgbo:eAI_STATUS>
+</esbbankgbo:GetBlackOutDatesReply>

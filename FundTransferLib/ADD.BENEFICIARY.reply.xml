@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<esbbankgbo:AddBeneficiaryReply
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:esbbank.com/gbo/xml/schemas/v1_0/ ADD.BENEFICIARY.xsd ">
+	<esbbankgbo:eAI_HEADER>
+		<esbbankgbo:referenceNum>20170820140700312</esbbankgbo:referenceNum>
+		<esbbankgbo:clientChannel>BPM</esbbankgbo:clientChannel>
+		<esbbankgbo:requestTime>2017:08:20-14:07</esbbankgbo:requestTime>
+
+		<esbbankgbo:SnapIns>
+			<esbbankgbo:nameValue />
+		</esbbankgbo:SnapIns>
+	</esbbankgbo:eAI_HEADER>
+	<esbbankgbo:eAI_BODY />
+	<esbbankgbo:eAI_STATUS>
+		<esbbankgbo:returnStatus>
+			<esbbankgbo:returnCode>000000</esbbankgbo:returnCode>
+		</esbbankgbo:returnStatus>
+		<esbbankgbo:returnStatusProvider>
+			<esbbankgbo:returnCodeProvider>1000</esbbankgbo:returnCodeProvider>
+		</esbbankgbo:returnStatusProvider>
+	</esbbankgbo:eAI_STATUS>
+</esbbankgbo:AddBeneficiaryReply>

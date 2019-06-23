@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/" version="1.0"
+	xmlns:esbbankgbo="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+       <xsd:include schemaLocation="CommonTypes.xsd"></xsd:include>	
+
+	<xsd:element name="SwiftBankListRequest" type="esbbankgbo:SwiftBankListRequest"></xsd:element>
+	
+	<xsd:complexType name="SwiftBankListRequest">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:SwiftBankListRequestBody" maxOccurs="1" minOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+
+
+	<xsd:complexType name="SwiftBankListRequestBody">
+        <xsd:choice>
+			<xsd:element name="LocalBanks" type="esbbankgbo:Boolean" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="BIC" type="esbbankgbo:BankBICType"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+
+        </xsd:choice>
+	</xsd:complexType>
+
+	<xsd:element name="SwiftBankListReply" type="esbbankgbo:SwiftBankListReply"></xsd:element>
+	
+	<xsd:complexType name="SwiftBankListReply">
+		<xsd:sequence>
+			<xsd:element name="eAI_HEADER" type="esbbankgbo:EAI_HEADER" />
+			<xsd:element name="eAI_BODY" type="esbbankgbo:SwiftBankListReplyBody" minOccurs="0"/>
+			<xsd:element name="eAI_STATUS" type="esbbankgbo:EAI_STATUS"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SwiftBankListReplyBody">
+		<xsd:sequence>
+			<xsd:element name="swiftBankDetail" type="esbbankgbo:BeneficiaryBankInfo" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+</xsd:schema>	
